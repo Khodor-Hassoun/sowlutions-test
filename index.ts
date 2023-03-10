@@ -17,6 +17,7 @@ class LinkedList {
   }
 
   addNode(value: number): void {
+    let size = 0;
     // if size 1 then only add to next of head
     const newNode = new PrivateNode(value);
     if (this.size === 1) {
@@ -26,8 +27,9 @@ class LinkedList {
     } else {
       // we will have to loop through the list
       let iteratorNode = this.head;
-      while (iteratorNode.next !== null) {
+      while (size < this.size && iteratorNode.next) {
         iteratorNode = iteratorNode.next;
+        size++;
       }
       iteratorNode.next = newNode;
       this.size++;
@@ -51,10 +53,23 @@ class LinkedList {
   }
 
   removeNode(value: number): void {
-    // If first node remove first
+    let size = 0;
     let iteratorNode = this.head;
-    while (iteratorNode.next !== null) {
-      if (iteratorNode.val > value) {
+    while (size < this.size) {
+      // check the head first
+      if (this.head.val > value) {
+        if (this.head.next) {
+          this.head = this.head.next;
+          this.size--;
+        }
+      }
+    }
+    size = 0;
+    while (size < this.size) {
+      if (iteratorNode.next?.val! > value) {
+        if (iteratorNode.next?.next) {
+          iteratorNode.next = iteratorNode.next.next;
+        }
       }
     }
   }
