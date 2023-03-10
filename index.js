@@ -37,7 +37,7 @@ var LinkedList = /** @class */ (function () {
         }
         var iteratorNode = this.head;
         var container = [];
-        while (size < this.size) {
+        while (iteratorNode) {
             if (iteratorNode.val) {
                 container.push(iteratorNode.val);
             }
@@ -47,7 +47,6 @@ var LinkedList = /** @class */ (function () {
         return container;
     };
     LinkedList.prototype.removeNode = function (value) {
-        var _a, _b;
         var size = 0;
         var iteratorNode = this.head;
         while (size < this.size) {
@@ -58,13 +57,22 @@ var LinkedList = /** @class */ (function () {
                     this.size--;
                 }
             }
+            size++;
         }
-        size = 0;
-        while (size < this.size) {
-            if (((_a = iteratorNode.next) === null || _a === void 0 ? void 0 : _a.val) > value) {
-                if ((_b = iteratorNode.next) === null || _b === void 0 ? void 0 : _b.next) {
+        iteratorNode = this.head;
+        while (iteratorNode.next) {
+            if (iteratorNode.next.val > value) {
+                if (iteratorNode.next.next) {
                     iteratorNode.next = iteratorNode.next.next;
+                    //   iteratorNode = iteratorNode.next;
+                    this.size--;
                 }
+                else {
+                    iteratorNode.next = null;
+                }
+            }
+            else {
+                iteratorNode = iteratorNode.next;
             }
         }
     };

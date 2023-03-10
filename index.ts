@@ -42,7 +42,7 @@ class LinkedList {
     }
     let iteratorNode = this.head;
     const container: number[] = [];
-    while (size < this.size) {
+    while (iteratorNode) {
       if (iteratorNode.val) {
         container.push(iteratorNode.val);
       }
@@ -63,13 +63,20 @@ class LinkedList {
           this.size--;
         }
       }
+      size++;
     }
-    size = 0;
-    while (size < this.size) {
-      if (iteratorNode.next?.val! > value) {
-        if (iteratorNode.next?.next) {
+    iteratorNode = this.head;
+    while (iteratorNode.next) {
+      if (iteratorNode.next.val > value) {
+        if (iteratorNode.next.next) {
           iteratorNode.next = iteratorNode.next.next;
+          //   iteratorNode = iteratorNode.next;
+          this.size--;
+        } else {
+          iteratorNode.next = null;
         }
+      } else {
+        iteratorNode = iteratorNode.next;
       }
     }
   }
