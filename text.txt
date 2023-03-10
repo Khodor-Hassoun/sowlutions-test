@@ -8,3 +8,15 @@
   //   }
   //     for(let k = ; k <cleanArray.length; k++){}
   //   }
+
+
+
+
+
+
+
+
+
+  let charcode = arr[i] ^ elem[i];
+      let letter = String.fromCharCode(charcode);
+      message += letter;

@@ -1,4 +1,6 @@
-const array = [
+const validChar = (c) => (32 <= c && c <= 90) || (97 <= c && c <= 122);
+
+const msg = [
   36, 22, 80, 0, 0, 4, 23, 25, 19, 17, 88, 4, 4, 19, 21, 11, 88, 22, 23, 23, 29,
   69, 12, 24, 0, 88, 25, 11, 12, 2, 10, 28, 5, 6, 12, 25, 10, 22, 80, 10, 30,
   80, 10, 22, 21, 69, 23, 22, 69, 61, 5, 9, 29, 2, 66, 11, 80, 8, 23, 3, 17, 88,
@@ -73,151 +75,28 @@ const array = [
   8, 26, 21, 23, 11, 94,
 ];
 
-const shortArr = array.slice(0, 3);
-const combArr = [];
-const alphabetArr = [..."abcdefghijklmnopqrstuvwxyz"];
-const charCodeArr = [];
-const messageArr = [];
-let keyArray = [];
-let retunStat;
-let key = "";
-let letterTest = 0;
+function decrypt() {
+  for (var i = 0; i < 26; i++)
+    for (var j = 0; j < 26; j++)
+      for (var k = 0; k < 26; k++) {
+        var decoded = [];
+        var t = [i + 97, j + 97, k + 97];
 
-for (elem of alphabetArr) {
-  let i = elem.charCodeAt(0);
-  charCodeArr.push(i);
-}
-const validChar = (c) => (32 <= c && c <= 90) || (97 <= c && c <= 122);
-for (elem of charCodeArr) {
-  for (elem2 of charCodeArr) {
-    for (elem3 of charCodeArr) {
-      combArr.push([elem, elem2, elem3]);
-    }
-  }
-}
-// function decrypt2() {
-//   for (elem of charCodeArr) {
-//     for (elem2 of charCodeArr) {
-//       for (elem3 of charCodeArr) {
-//           combArr.push([elem, elem2, elem3]);
-//         let message = "";
-//         letterTest = 0;
-//         const decoded = [];
-//         let t = [elem, elem2, elem3];
-//         for (let i = 0; i < array.length; i++) {
-//           let charcode = t[i % 3] ^ array[i];
-//           let letter = String.fromCharCode(charcode);
-//           message += letter;
-//           if (
-//             (charcode >= 32 && charcode <= 90) ||
-//             (charcode >= 97 && charcode <= 122) ||
-//             charcode === 32
-//           ) {
-//             letterTest++;
-//           }
-//           // decoded.push(charcode);
-//         }
-//         if (letterTest === array.length) {
-//           //   console.log(message);
-//           messageArr.push(message);
-//           keyArray.push(t);
-//         }
-//         if (letterTest === array.length) {
-//           key = t.map(String.fromCharCode).join("");
-//           console.log(
-//             "Key: ",
-//             t.map(String.fromCharCode).join(""),
-//             "Sum: ",
-//             decoded.reduce((x, s) => x + s, 0)
-//           );
-//         }
-//       }
-//     }
-//   }
-//   return [keyArray, array.length, letterTest];
-// }
+        for (var p = 0; p < msg.length; p++) {
+          var c = t[p % 3] ^ msg[p];
+          if (!validChar(c)) {
+            break;
+          }
+          decoded.push(c);
+        }
 
-// for (elem of charCodeArr) {
-//   for (elem2 of charCodeArr) {
-//     for (elem3 of charCodeArr) {
-//       //   combArr.push([elem, elem2, elem3]);
-//       let message = "";
-//       let letterTest = 0;
-//       const decoded = [];
-//       const t = [elem, elem2, elem3];
-//       for (let i = 0; i < array.length; i++) {
-//         let charcode = t[i % 3] ^ array[i];
-//         let letter = String.fromCharCode(charcode);
-//         message += letter;
-//         if (
-//           (charcode >= 65 && charcode <= 90) ||
-//           (charcode >= 97 && charcode <= 122) ||
-//           charcode === 32
-//         ) {
-//           letterTest++;
-//         }
-//         // decoded.push(charcode);
-//       }
-//       if (letterTest === 3) {
-//         //   console.log(message);
-//         messageArr.push(message);
-//         keyArray.push(t);
-//       }
-//       if (letterTest === array.length) {
-//         key = t.map(String.fromCharCode).join("");
-//         console.log(
-//           "Key: ",
-//           t.map(String.fromCharCode).join(""),
-//           "Sum: ",
-//           decoded.reduce((x, s) => x + s, 0)
-//         );
-//       }
-//     }
-//   }
-// }
-// console.log(key);
-// Lower case letters a = 97 to z = 122
-// 25 combinations
-// create combinations
-
-function decrypt(array) {
-  testString = false;
-  for (nestedArr of combArr) {
-    let message = "";
-    let letterTest = 0;
-    for (let i = 0; i < array.length; i++) {
-      let charcode = nestedArr[i % 3] ^ array[i];
-      let letter = String.fromCharCode(charcode);
-      message += letter;
-      if (
-        (charcode >= 65 && charcode <= 90) ||
-        (charcode >= 97 && charcode <= 122) ||
-        charcode === 32
-      ) {
-        letterTest++;
+        if (decoded.length === msg.length) {
+          console.log(
+            "Key: ",
+            t.map(String.fromCharCode).join(""),
+            "Sum: ",
+            decoded.reduce((x, s) => x + s, 0)
+          );
+        }
       }
-    }
-    test = message.includes("serierum");
-    // console.log(message);
-    // if (array.length - letterTest < 100) {
-    //   //   console.log(message);
-    //   messageArr.push(message);
-    // }
-    if (test) {
-      messageArr.push(message);
-      keyArray = nestedArr;
-    }
-  }
-  for (elem of keyArray) {
-    console.log(keyArray);
-    letter = String.fromCharCode(elem);
-    key += letter;
-  }
-  //   return messageArr;
-  return key;
 }
-decrypt(array);
-
-// function onlyLettersAndNumbers(str) {
-//   return /[a-zA-Z]/g.test(str);
-// }
