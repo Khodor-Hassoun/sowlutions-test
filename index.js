@@ -1,22 +1,30 @@
-function isValidBracketSequence(str) {
-  const parans = ["(", ")"];
-  const brackets = ["[", "]"];
-  const curly = ["{", "}"];
+const hashObj = {
+  0: 0,
+  1: 0,
+  2: 0,
+  3: 0,
+  4: 0,
+  5: 0,
+};
 
-  const strArray = str.split("");
-  //   Edge cases
-  if (strArray.length === 0 || strArray.length === 1) {
-    return false;
+const countArray = [];
+const sortedArray = [];
+
+// Array determined has elements exclusively between 0 and 5
+
+function countAndSort(array) {
+  for (elem of array) {
+    hashObj[elem] += 1;
   }
-  if (
-    strArray[0] === parans[1] ||
-    strArray[0] === brackets[1] ||
-    strArray[0] === curly[1]
-  ) {
-    return "out of order";
-  }
-  for (let i = 0; i < strArray.length; i++) {
-    if (strArray[i] === parans[0] || brackets[0] || strArray[i] === curly[0]) {
+  Object.values(hashObj).forEach((val) => countArray.push(val));
+  //   return countArray;
+
+  for (let i = 0; i < countArray.length; i++) {
+    let k = 0;
+    while (k < countArray[i]) {
+      sortedArray.push(i);
+      k++;
     }
   }
+  return { countArray, sortedArray };
 }
