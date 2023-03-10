@@ -34,14 +34,15 @@ class LinkedList {
     }
   }
   print(): number[] {
+    let size = 0;
     if (this.size === 1) {
       return [this.head.val];
     }
     let iteratorNode = this.head;
     const container: number[] = [];
-    while (iteratorNode.next !== null) {
+    while (size < this.size - 1) {
       container.push(iteratorNode.val);
-      iteratorNode = iteratorNode.next;
+      iteratorNode = iteratorNode.next!;
     }
     return container;
   }
