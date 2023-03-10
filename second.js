@@ -27,9 +27,13 @@ function isValidBracketSequence(str) {
 
   while (i < cleanArray.length - 1) {
     let openingIndex = opening.indexOf(cleanArray[i]);
+    if (openingIndex === -1) {
+      i++;
+      continue;
+    }
     if (cleanArray[i + j + 1] !== closing[openingIndex]) {
-      if (opening.indexOf(cleanArray[i + j + 1]) === -1) {
-        return `FIRST FALSE i = ${i}  j = ${j}`;
+      if (opening.indexOf(cleanArray[i + j]) === -1) {
+        return `FIRST FALSE i = ${i}  j = ${j} opening index = ${openingIndex}`;
       } else {
         j += 2;
       }
@@ -40,9 +44,9 @@ function isValidBracketSequence(str) {
     // } else {
     //   return false;
     // }
-    if (cleanArray[i + j] === closing[openingIndex]) {
+    if (cleanArray[i + j + 1] === closing[openingIndex]) {
       i++;
-      j = 1;
+      j = 0;
       // } else if (j !== cleanArray.length - i) {
       //   j++;
     } else if (j > cleanArray.length) {
