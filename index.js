@@ -198,11 +198,6 @@ function decrypt(array) {
       }
     }
     test = message.includes("serierum");
-    // console.log(message);
-    // if (array.length - letterTest < 100) {
-    //   //   console.log(message);
-    //   messageArr.push(message);
-    // }
     if (test) {
       messageArr.push(message);
       keyArray = nestedArr;
@@ -217,7 +212,3 @@ function decrypt(array) {
   return key;
 }
 decrypt(array);
-
-// function onlyLettersAndNumbers(str) {
-//   return /[a-zA-Z]/g.test(str);
-// }
