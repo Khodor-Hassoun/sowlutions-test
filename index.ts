@@ -40,9 +40,12 @@ class LinkedList {
     }
     let iteratorNode = this.head;
     const container: number[] = [];
-    while (size < this.size - 1) {
-      container.push(iteratorNode.val);
+    while (size < this.size) {
+      if (iteratorNode.val) {
+        container.push(iteratorNode.val);
+      }
       iteratorNode = iteratorNode.next!;
+      size++;
     }
     return container;
   }

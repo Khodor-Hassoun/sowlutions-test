@@ -29,14 +29,18 @@ var LinkedList = /** @class */ (function () {
         }
     };
     LinkedList.prototype.print = function () {
+        var size = 0;
         if (this.size === 1) {
             return [this.head.val];
         }
         var iteratorNode = this.head;
         var container = [];
-        while (iteratorNode.next !== null) {
-            container.push(iteratorNode.val);
+        while (size < this.size) {
+            if (iteratorNode.val) {
+                container.push(iteratorNode.val);
+            }
             iteratorNode = iteratorNode.next;
+            size++;
         }
         return container;
     };
